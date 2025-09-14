@@ -14,7 +14,7 @@ Certifique-se de ter os seguintes itens instalados em sua máquina:
 Além disso, você precisará de uma API Key do Datadog. Realize o registro no [portal do Datadog](https://www.datadoghq.com/) e com a chave em mãos configure-a como uma variável de ambiente:
 
 ```bash
-export DD_API_KEY=your-datadog-api-key
+export DATADOG_API_KEY=your-datadog-api-key
 ```
 
 ## Como rodar o projeto
@@ -38,16 +38,11 @@ docker-compose up --build
 3. Acessar a aplicação
 A aplicação estará disponível em http://localhost:8080.
 
-Exemplo curl:
+Exemplo curl listar pedidos:
 
 ```bash
 curl --request GET \
   --url http://localhost:8080/pedidos \
-  --header 'Content-Type: application/json' \
-  --data '{
-	"descricao": "pedido de teste",
-	"valor": 100
-}'
 ```
 
 4. Verificar os logs e métricas no Datadog
