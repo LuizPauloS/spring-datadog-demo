@@ -1,6 +1,5 @@
 package com.example.spring_datadog_demo.models.entities;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +15,9 @@ public class PedidoEntity {
     private Long id;
     private String descricao;
     private Double valor;
+
+    public PedidoEntity() {
+    }
 
     public PedidoEntity(String descricao, Double valor) {
         this.descricao = descricao;

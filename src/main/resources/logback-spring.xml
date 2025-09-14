@@ -1,19 +1,10 @@
 <configuration>
-    <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp/>
-                <logLevel/>
-                <loggerName/>
-                <threadName/>
-                <message/>
-                <stackTrace/>
-                <mdc/>
-            </providers>
-        </encoder>
-    </appender>
+  <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+    <destination>datadog:10514</destination>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+  </appender>
 
-    <root level="INFO">
-        <appender-ref ref="JSON_CONSOLE"/>
-    </root>
+  <root level="INFO">
+    <appender-ref ref="LOGSTASH" />
+  </root>
 </configuration>

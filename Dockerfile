@@ -1,16 +1,11 @@
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17-jdk-alpine
 
-# Crie diretório da aplicação
+RUN apk add --no-cache curl
+
 WORKDIR /app
 
-# Copie o JAR da aplicação
-COPY build/libs/*-SNAPSHOT.jar app.jar
+RUN curl -L -o /app/dd-java-agent.jar https://dtdg.co/latest-java-tracer
 
-# Baixe o Datadog Java Agent
-RUN curl -L -o dd-java-agent.jar https://dtdg.co/latest-java-tracer
+COPY build/libs/*.jar app.jar
 
-# Exponha a porta da aplicação
-EXPOSE 8080
-
-# Use JAVA_OPTS e inicie a aplicação
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["java", "-javaagent:/app/dd-java-agent.jar", "-jar", "app.jar"]

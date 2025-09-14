@@ -1,5 +1,7 @@
 package com.example.spring_datadog_demo.services;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -35,5 +37,15 @@ public class PedidoService {
 
         var pedidoResponse = new PedidoResponseDTO(pedidoEntity.getId(), pedidoEntity.getDescricao(), pedidoEntity.getValor());
         return pedidoResponse;
+    }
+
+    public List<PedidoResponseDTO> listarPedidos() {
+        log.info("Listando pedidos...");
+        var pedidos = this.pedidoRepository.findAll();
+        var pedidoResponses = pedidos.stream()
+                .map(p -> new PedidoResponseDTO(p.getId(), p.getDescricao(), p.getValor()))
+                .toList();
+        log.info("Total de pedidos encontrados: {}", pedidoResponses.size());
+        return pedidoResponses;
     }
 }
