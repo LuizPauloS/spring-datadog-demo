@@ -1,0 +1,48 @@
+services:
+  app:
+    build: .
+    container_name: spring-datadog-demo
+    environment:
+      JAVA_OPTS: >-
+        -javaagent:/app/dd-java-agent.jar
+        -Ddd.service=spring-datadog-demo
+        -Ddd.env=dev
+        -Ddd.version=1.0.0
+        -Ddd.agent.host=datadog-agent
+        -Ddd.trace.debug=true
+        -Ddd.logs.injection=true
+    ports:
+      - "8080:8080"
+    depends_on:
+      - datadog-agent
+    networks:
+      - datadog-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  datadog-agent:
+    image: gcr.io/datadoghq/agent:latest
+    container_name: datadog-agent
+    environment:
+      - DD_API_KEY=${DD_API_KEY}
+      - DD_SITE=datadoghq.com
+      - DD_APM_ENABLED=true
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_PROCESS_AGENT_ENABLED=true
+      - DD_TAGS=env:dev
+    ports:
+      - "8125:8125/udp"
+      - "8126:8126"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - datadog-net
+
+networks:
+  datadog-net:
+    driver: bridge

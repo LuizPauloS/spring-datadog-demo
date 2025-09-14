@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: spring-datadog-demo
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: sa
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: update
+
+management:
+    datadog:
+        metrics:
+            export:
+                apiKey: ${DD_API_KEY}   # 🔐 Substitua pela sua API Key real
+    endpoints:
+        web:
+            exposure:
+                include: health, info, prometheus
