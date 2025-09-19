@@ -38,8 +38,21 @@ docker-compose up --build
 3. Acessar a aplicação
 A aplicação estará disponível em http://localhost:8080.
 
-Exemplo curl listar pedidos:
+Exemplo curl para adicionar pedidos:
 
+```bash
+curl --request POST \
+  --url http://localhost:8080/pedidos/adicionar \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/11.5.0' \
+  --cookie JSESSIONID=B0E21BB2329920B54E9A6DCD13223471 \
+  --data '{
+	"descricao": "pedido de teste",
+	"valor": 100
+}'
+```
+
+Exemplo curl para listar pedidos:
 ```bash
 curl --request GET \
   --url http://localhost:8080/pedidos \
