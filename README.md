@@ -44,8 +44,6 @@ Exemplo curl para adicionar pedidos:
 curl --request POST \
   --url http://localhost:8080/pedidos/adicionar \
   --header 'Content-Type: application/json' \
-  --header 'User-Agent: insomnia/11.5.0' \
-  --cookie JSESSIONID=B0E21BB2329920B54E9A6DCD13223471 \
   --data '{
 	"descricao": "pedido de teste",
 	"valor": 100
