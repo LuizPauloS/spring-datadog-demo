@@ -4,7 +4,7 @@ RUN apk add --no-cache curl
 
 WORKDIR /app
 
-RUN curl -L -o /app/dd-java-agent.jar https://dtdg.co/latest-java-tracer
+RUN curl -L -o dd-java-agent.jar https://dtdg.co/latest-java-tracer
 
 COPY build/libs/*.jar app.jar
 
